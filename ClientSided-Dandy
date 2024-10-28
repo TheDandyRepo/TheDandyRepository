@@ -1,0 +1,37 @@
+local Dandy = game.Workspace.Elevators.Elevator.DandyStore.DandyShop
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local DHAir = Dandy.Hair
+local CHAir = character.Hair
+
+for _, partA in ipairs(Dandy:GetDescendants()) do
+    local partB = character:FindFirstChild(partA.Name, true)
+    if partB then
+        DHAir.Parent = character
+        DHAir.Joint.Part0 = character.Head
+        wait(0.01)
+        character.Animate.idle.Animation1.AnimationId = "rbxassetid://16496520991"
+        character.Animate.idle.Animation2.AnimationId = "rbxassetid://16496520991"
+        character.Animate.run.RunAnim.AnimationId = "rbxassetid://16496812530"
+        character.Config.NormalTexture.Texture = "rbxassetid://16496414911"
+        character.Config.HurtTexture.Texture = "rbxassetid://17561468145"
+
+        CHAir:Destroy()
+        wait(0.01)
+        if partA:IsA("MeshPart") and partB:IsA("MeshPart") then
+            local tempMeshId = partA.MeshId
+            partA.MeshId = partB.MeshId
+            partB.MeshId = tempMeshId
+            local tempTextureId = partA.TextureID
+            partA.TextureID = partB.TextureID
+            partB.TextureID = tempTextureId
+
+
+        end
+        if partA:IsA("SpecialMesh") and partB:IsA("SpecialMesh") then
+            local tempMeshId = partA.MeshId
+            partA.MeshId = partB.MeshId
+            partB.MeshId = tempMeshId
+        end
+    end
+end
